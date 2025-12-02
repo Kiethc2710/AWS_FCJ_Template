@@ -1,59 +1,31 @@
 ---
-title: "Worklog Tuần 5"
-date: "`r Sys.Date()`"
+title: "Nhật ký Tuần 5"
+date: "2025-09-10"
 weight: 1
 chapter: false
 pre: " <b> 1.5. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
+### Mục tiêu Tuần 5:
 
-### Mục tiêu tuần 5:
+* Dịch blog của AWS
+* Xây dựng cơ sở dữ liệu cho dự án
+* Cài đặt môi trường làm việc trên máy tính
 
-* Kết nối, làm quen với các thành viên trong First Cloud Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+### Các nhiệm vụ cần thực hiện trong tuần:
+| Ngày | Nhiệm vụ                                                                                                                                                                               | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ---------------- | ------------------- |
+| 2    | - Nhận nhiệm vụ dịch blog từ Mentor AWS <br> - Đọc và ghi chú nội dung bài dịch                                                                                                        | 06/10/2025    | 06/10/2025       |                     |
+| 3    | - Họp nhóm để brainstorm và lên ý tưởng cho dự án                                                                                                                                       | 07/10/2025    | 07/10/2025       |                     |
+| 4    | - Cài đặt môi trường lập trình cho coder                                                                                                                                                | 07/10/2025    | 08/10/2025       |                     |
+| 6    | - Xây dựng cơ sở dữ liệu cho dự án                                                                                                                                                      | 09/10/2025    | 11/10/2025       |                     |
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### Thành tựu Tuần 5:
 
+* Hoàn thành việc dịch các bài blog AWS, ghi chép đầy đủ và hiểu rõ các khái niệm liên quan.
 
-### Kết quả đạt được tuần 5:
+* Tham gia họp nhóm để thảo luận và phát triển ý tưởng dự án, góp phần định hướng rõ ràng cho kế hoạch phát triển.
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Cài đặt đầy đủ môi trường làm việc trên máy tính, đảm bảo chạy được dự án và đồng bộ với cấu hình chung của nhóm.
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
-
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+* Xây dựng cấu trúc cơ sở dữ liệu cho dự án, bao gồm thiết kế ERD, tạo bảng, định nghĩa khóa chính – khóa ngoại, thiết lập quan hệ và đảm bảo tính nhất quán, tối ưu dữ liệu.

@@ -1,58 +1,31 @@
 ---
-title: "Worklog Tuần 12"
-date: "`r Sys.Date()`"
-weight: 2
+title: "Week 12 Worklog"
+date: "2025-11-26"
+weight: 1
 chapter: false
-pre: " <b> 1.12 </b> "
+pre: " <b> 1.12. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
-### Mục tiêu tuần 12:
+### Mục tiêu Tuần 12:
 
-* Kết nối, làm quen với các thành viên trong First Cloud Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+* Cải thiện giao diện (UI) dự án để nâng cao trải nghiệm người dùng.
+* Thêm hình ảnh sản phẩm **cố định** lưu trên máy để hiển thị trong dự án.
+* Kiểm tra hình hiển thị đúng trên các trang sản phẩm và CRUD.
+* Hoàn thiện layout dự án và chuẩn bị tài liệu nộp báo cáo.
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### Nhiệm vụ cần thực hiện trong tuần:
+| Ngày | Nhiệm vụ                                                                                               | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo        |
+| ---- | ----------------------------------------------------------------------------------------------------- | ------------- | ---------------- | -------------------------- |
+| 2    | - Fix layout và thiết kế các trang chính (Dashboard, CRUD pages)                                     | 24/11/2025    | 24/11/2025       | Bootstrap / Tailwind Docs |
+| 3    | - Thêm hình ảnh sản phẩm cố định lưu trong wwwroot/images                                           | 25/11/2025    | 25/11/2025       | ASP.NET Core Docs         |
+| 4    | - Cập nhật các view Create, Edit, Details để hiển thị hình ảnh sản phẩm                              | 26/11/2025    | 26/11/2025       | Code dự án / Tutorials    |
+| 5    | - Kiểm tra hiển thị hình sản phẩm với các thao tác CRUD                                             | 27/11/2025    | 27/11/2025       | Notes kiểm tra dự án       |
+| 6    | - Xem lại UI và layout dự án, fix các lỗi nhỏ, chuẩn bị tài liệu cuối                                 | 28/11/2025    | 28/11/2025       | Tài liệu dự án             |
+| 7    | - **Tham dự sự kiện công ty** | 29/11/2025 | 29/11/2025 | Tài liệu sự kiện |
+### Thành tựu Tuần 12:
 
-
-### Kết quả đạt được tuần 12:
-
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Đã tạo và cấu hình AWS Free Tier account thành công.
-
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+* Cải thiện UI tổng thể của dự án, nâng cao trải nghiệm người dùng.
+* Thêm hình ảnh sản phẩm cố định và hiển thị đúng trên các view liên quan.
+* Xác nhận hình sản phẩm hiển thị đúng với các thao tác CRUD.
+* Xem lại và hoàn thiện layout, fix các lỗi thiết kế nhỏ.
+* Dự án sẵn sàng nộp với giao diện cải thiện và hiển thị hình sản phẩm.

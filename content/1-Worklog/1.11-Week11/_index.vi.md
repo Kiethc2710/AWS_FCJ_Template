@@ -1,59 +1,32 @@
 ---
-title: "Worklog Tuần 11"
-date: "`r Sys.Date()`"
-weight: 2
+title: "Week 11 Worklog"
+date: "2025-11-19"
+weight: 1
 chapter: false
 pre: " <b> 1.11. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
+### Mục tiêu Tuần 11:
 
-### Mục tiêu tuần 11:
+* Học kiến thức cơ bản về Docker và container hóa ứng dụng.
+* Tạo Dockerfile cho dự án ASP.NET Core.
+* Cấu hình docker-compose với SQL Server để phát triển.
+* Chạy dự án trong Docker và kiểm tra kết nối cơ sở dữ liệu.
+* Tìm hiểu Docker volumes và networking để giữ dữ liệu và kết nối giữa các container.
 
-* Kết nối, làm quen với các thành viên trong First Cloud Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+### Nhiệm vụ cần thực hiện trong tuần:
+| Ngày | Nhiệm vụ                                                                                              | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo        |
+| ---- | ----------------------------------------------------------------------------------------------------- | ------------- | ---------------- | -------------------------- |
+| 2    | - **Tham dự sự kiện công ty** <br>- Học Docker cơ bản: containers, images, lệnh Docker CLI                                             | 17/11/2025    | 17/11/2025       | Docker Docs / Tutorials    |
+| 3    | - Viết Dockerfile cho dự án ASP.NET Core                                                           | 18/11/2025    | 18/11/2025       | Microsoft Docs / Tutorials|
+| 4    | - Tạo docker-compose với ứng dụng ASP.NET Core và container SQL Server                               | 19/11/2025    | 19/11/2025       | Docker Compose Docs        |
+| 5    | - Build và chạy container, kiểm tra kết nối dự án và CRUD module                                     | 20/11/2025    | 20/11/2025       | Notes testing dự án        |
+| 6    | - Học Docker volumes và networking <br> - Đảm bảo dữ liệu database tồn tại qua các lần khởi động container | 21/11/2025    | 21/11/2025       | Docker Docs                |
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### Thành tựu Tuần 11:
 
-
-### Kết quả đạt được tuần 11:
-
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Đã tạo và cấu hình AWS Free Tier account thành công.
-
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+* Học được kiến thức cơ bản về Docker, bao gồm containers, images, và lệnh CLI cơ bản.
+* Tạo thành công Dockerfile cho dự án ASP.NET Core.
+* Cấu hình docker-compose với SQL Server và container ASP.NET Core.
+* Chạy dự án trong Docker, kiểm tra kết nối database và CRUD module.
+* Tìm hiểu Docker volumes và network để dữ liệu được lưu giữ và container liên lạc với nhau.
