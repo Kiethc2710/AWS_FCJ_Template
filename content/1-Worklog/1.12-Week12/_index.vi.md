@@ -21,7 +21,7 @@ pre: " <b> 1.12. </b> "
 | 4    | - Cập nhật các view Create, Edit, Details để hiển thị hình ảnh sản phẩm                              | 26/11/2025    | 26/11/2025       | Code dự án / Tutorials    |
 | 5    | - Kiểm tra hiển thị hình sản phẩm với các thao tác CRUD                                             | 27/11/2025    | 27/11/2025       | Notes kiểm tra dự án       |
 | 6    | - Xem lại UI và layout dự án, fix các lỗi nhỏ, chuẩn bị tài liệu cuối                                 | 28/11/2025    | 28/11/2025       | Tài liệu dự án             |
-| 7    | - **Tham dự sự kiện công ty** | 29/11/2025 | 29/11/2025 | Tài liệu sự kiện |
+| 7    | - **Tham dự sự kiện công ty 3** | 29/11/2025 | 29/11/2025 | Tài liệu sự kiện |
 ### Thành tựu Tuần 12:
 
 * Cải thiện UI tổng thể của dự án, nâng cao trải nghiệm người dùng.
