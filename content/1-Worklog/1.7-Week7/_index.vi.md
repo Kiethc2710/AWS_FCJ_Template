@@ -1,7 +1,7 @@
 ---
-title: "Week 7 Worklog"
-date: "2025-09-24"
-weight: 1
+title: "Nhật kí Tuần 7"
+date: 2025-10-20
+weight: 7
 chapter: false
 pre: " <b> 1.7. </b> "
 ---
@@ -15,7 +15,7 @@ pre: " <b> 1.7. </b> "
 ### Nhiệm vụ cần thực hiện trong tuần:
 | Ngày | Nhiệm vụ                                                                                                  | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo      |
 | ---- | ---------------------------------------------------------------------------------------------------------- | ------------- | ---------------- | ------------------------ |
-| 2    | - Lập kế hoạch ôn thi giữa kỳ <br> - Xem lại bài giảng và các kiến thức trọng tâm                         | 20/10/2025    | 20/10/2025       | Tài liệu trường          |
+| 2    | - Lập kế hoạch ôn thi giữa kỳ <br> - Xem lại bài giảng và các kiến thức trọng tâm                         | 20/10/2025    | 20/10/2025       | |
 | 3    | - Luyện bài tập và các câu hỏi mẫu cho kỳ thi                                                             | 21/10/2025    | 21/10/2025       | Bộ đề luyện tập          |
 | 4    | - Xem lại cấu trúc MVC của dự án và rà soát tính nhất quán của model                                     | 22/10/2025    | 22/10/2025       | MVC Documentation        |
 | 5    | - Tiếp tục ôn thi giữa kỳ                                                                                 | 23/10/2025    | 23/10/2025       |                          |

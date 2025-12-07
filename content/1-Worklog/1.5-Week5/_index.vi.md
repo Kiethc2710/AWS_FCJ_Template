@@ -1,7 +1,7 @@
 ---
-title: "Nhật ký Tuần 5"
-date: "2025-09-10"
-weight: 1
+title: "Nhật kí Tuần 5"
+date: 2025-10-06
+weight: 5
 chapter: false
 pre: " <b> 1.5. </b> "
 ---

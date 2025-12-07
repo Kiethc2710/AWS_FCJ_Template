@@ -1,5 +1,5 @@
 ---
-title: "Nhật ký Tuần 2"
+title: "Nhật kí Tuần 2"
 date: 2025-09-15
 weight: 2
 chapter: false

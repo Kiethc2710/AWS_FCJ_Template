@@ -1,7 +1,7 @@
 ---
-title: "Week 8 Worklog"
-date: "2025-10-01"
-weight: 1
+title: "Nhật kí Tuần 8"
+date: 2025-10-27
+weight: 8
 chapter: false
 pre: " <b> 1.8. </b> "
 ---
@@ -15,9 +15,9 @@ pre: " <b> 1.8. </b> "
 ### Nhiệm vụ cần thực hiện trong tuần:
 | Ngày | Nhiệm vụ                                                                                                     | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo           |
 | ---- | ------------------------------------------------------------------------------------------------------------- | ------------- | ---------------- | ------------------------------ |
-| 2    | - Ôn tập tổng hợp các môn thi <br> - Luyện nốt các bài tập còn lại                                           | 27/10/2025    | 27/10/2025       | Ghi chú bài giảng             |
+| 2    | - Ôn tập tổng hợp các môn thi <br> - Luyện nốt các bài tập còn lại                                           | 27/10/2025    | 27/10/2025       ||
 | 3    | - Tiếp tục chuẩn bị cho bài thi giữa kỳ                                                                     | 28/10/2025    | 28/10/2025       | Bộ đề luyện tập               |
-| 4    | - Tham gia thi giữa kỳ (31/10)                                                                              | 31/10/2025    | 31/10/2025       | Tài liệu môn học              |
+| 4    | - Tham gia thi giữa kỳ (31/10)                                                                              | 31/10/2025    | 31/10/2025       | |
 | 5    | - Bảo trì nhẹ dự án: kiểm tra lại cấu trúc thư mục & cập nhật tài liệu nhỏ                                   | 01/11/2025    | 01/11/2025       | Tài liệu dự án                |
 | 6    | - Nghỉ ngơi sau kỳ thi và chuẩn bị tinh thần để quay lại phát triển dự án tuần sau                         | 02/11/2025    | 02/11/2025       |                                |
 

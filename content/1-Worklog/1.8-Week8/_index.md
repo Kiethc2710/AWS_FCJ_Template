@@ -1,7 +1,7 @@
 ---
 title: "Week 8 Worklog"
-date: "2025-10-01"
-weight: 1
+date: 2025-10-27
+weight: 8
 chapter: false
 pre: " <b> 1.8. </b> "
 ---
@@ -15,9 +15,9 @@ pre: " <b> 1.8. </b> "
 ### Tasks to be carried out this week:
 | Day | Task                                                                                                       | Start Date | Completion Date | Reference Material            |
 | --- | ---------------------------------------------------------------------------------------------------------- | ---------- | ---------------- | ------------------------------ |
-| 2   | - Final review of midterm subjects <br> - Practice remaining exercises                                      | 27/10/2025 | 27/10/2025       | University lecture notes       |
+| 2   | - Final review of midterm subjects <br> - Practice remaining exercises                                      | 27/10/2025 | 27/10/2025       | |
 | 3   | - Continue midterm exam preparation                                                                         | 28/10/2025 | 28/10/2025       | Practice sheets                |
-| 4   | - Sit for the midterm exam (31/10)                                                                          | 31/10/2025 | 31/10/2025       | Exam materials                 |
+| 4   | - Sit for the midterm exam (31/10)                                                                          | 31/10/2025 | 31/10/2025       |              |
 | 5   | - Light project maintenance: verify folders & update small documentation                                    | 01/11/2025 | 01/11/2025       | Project documentation          |
 | 6   | - Rest after the exam and prepare to resume full project development next week                              | 02/11/2025 | 02/11/2025       |                                |
 

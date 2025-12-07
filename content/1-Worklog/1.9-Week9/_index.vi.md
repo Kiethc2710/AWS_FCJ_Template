@@ -1,7 +1,7 @@
 ---
-title: "Week 9 Worklog"
-date: "2025-11-05"
-weight: 1
+title: "Nhật kí Tuần 9"
+date: 2025-11-03
+weight: 9
 chapter: false
 pre: " <b> 1.9. </b> "
 ---
