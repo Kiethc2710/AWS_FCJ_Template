@@ -2,8 +2,11 @@ baseURL = "https://kiethc2710.github.io/AWS_FCJ_Template/"
 relativeURLs = true
 canonifyURLs = true
 
+
 # Change the default theme to be use when building the site with Hugo
 theme = "hugo-theme-learn"
+
+defaultContentLanguage = "en"
 
 # For search functionality
 [outputs]
