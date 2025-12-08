@@ -5,122 +5,139 @@ weight: 1
 chapter: false
 pre: " <b> 3.2. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
-{{% /notice %}}
 
-# Getting Started with Healthcare Data Lakes: Using Microservices
+# AWS Public Sector Blog  
+## Building Resilient Healthcare Systems Through Cloud Computing
 
-Data lakes can help hospitals and healthcare facilities turn data into business insights, maintain business continuity, and protect patient privacy. A **data lake** is a centralized, managed, and secure repository to store all your data, both in its raw and processed forms for analysis. Data lakes allow you to break down data silos and combine different types of analytics to gain insights and make better business decisions.
-
-This blog post is part of a larger series on getting started with setting up a healthcare data lake. In my final post of the series, *“Getting Started with Healthcare Data Lakes: Diving into Amazon Cognito”*, I focused on the specifics of using Amazon Cognito and Attribute Based Access Control (ABAC) to authenticate and authorize users in the healthcare data lake solution. In this blog, I detail how the solution evolved at a foundational level, including the design decisions I made and the additional features used. You can access the code samples for the solution in this Git repo for reference.
+**Authors:** Justin Bowden, Andrew Wiltshire, Senthil Gurumoorthi  
+**Date:** 08 JUL 2025  
+**Source:** AWS Public Sector Blog  
 
 ---
 
-## Architecture Guidance
+# Summary
 
-The main change since the last presentation of the overall architecture is the decomposition of a single service into a set of smaller services to improve maintainability and flexibility. Integrating a large volume of diverse healthcare data often requires specialized connectors for each format; by keeping them encapsulated separately as microservices, we can add, remove, and modify each connector without affecting the others. The microservices are loosely coupled via publish/subscribe messaging centered in what I call the “pub/sub hub.”
+The resilience of clinical and operational healthcare systems is not just a technical matter but also an important policy priority. Even short-term disruptions to electronic health records or clinical systems can directly affect patient care and safety.
 
-This solution represents what I would consider another reasonable sprint iteration from my last post. The scope is still limited to the ingestion and basic parsing of **HL7v2 messages** formatted in **Encoding Rules 7 (ER7)** through a REST interface.
-
-**The solution architecture is now as follows:**
-
-> *Figure 1. Overall architecture; colored boxes represent distinct services.*
+AWS has released the guide **“Resilient Healthcare Through Cloud Computing: A Strategy and Policy Guide”**, which provides a comprehensive framework to enhance healthcare system resilience, ensure regulatory compliance, and improve patient outcomes.
 
 ---
 
-While the term *microservices* has some inherent ambiguity, certain traits are common:  
-- Small, autonomous, loosely coupled  
-- Reusable, communicating through well-defined interfaces  
-- Specialized to do one thing well  
-- Often implemented in an **event-driven architecture**
+# Why Cloud Resilience Matters in Healthcare
 
-When determining where to draw boundaries between microservices, consider:  
-- **Intrinsic**: technology used, performance, reliability, scalability  
-- **Extrinsic**: dependent functionality, rate of change, reusability  
-- **Human**: team ownership, managing *cognitive load*
+Healthcare organizations operate in environments where **system reliability directly impacts patient safety**.  
+The growth of:
 
----
+- Electronic Health Records (EHR)
+- Telehealth
+- Connected medical devices (IoMT)
 
-## Technology Choices and Communication Scope
+… has created complex technological ecosystems requiring **high performance, strong security, and exceptional resilience**.
 
-| Communication scope                       | Technologies / patterns to consider                                                        |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Within a single microservice              | Amazon Simple Queue Service (Amazon SQS), AWS Step Functions                               |
-| Between microservices in a single service | AWS CloudFormation cross-stack references, Amazon Simple Notification Service (Amazon SNS) |
-| Between services                          | Amazon EventBridge, AWS Cloud Map, Amazon API Gateway                                      |
+The AWS guide introduces key principles:
+
+- **Automated system recovery** when thresholds are exceeded  
+- **Regularly validated procedures** to ensure effective recovery  
+- **Distributed architectures** to improve scalability and reduce single points of failure  
 
 ---
 
-## The Pub/Sub Hub
+# Cloud Advantages for Healthcare
 
-Using a **hub-and-spoke** architecture (or message broker) works well with a small number of tightly related microservices.  
-- Each microservice depends only on the *hub*  
-- Inter-microservice connections are limited to the contents of the published message  
-- Reduces the number of synchronous calls since pub/sub is a one-way asynchronous *push*
+AWS cloud infrastructure offers capabilities that traditional on-premises systems struggle to match, such as:
 
-Drawback: **coordination and monitoring** are needed to avoid microservices processing the wrong message.
+- Multiple **Regions** and **Availability Zones (AZs)**
+- Workload distribution across physically separate locations while maintaining high performance
+- Automated improvements in security, efficiency, and disaster recovery
 
----
-
-## Core Microservice
-
-Provides foundational data and communication layer, including:  
-- **Amazon S3** bucket for data  
-- **Amazon DynamoDB** for data catalog  
-- **AWS Lambda** to write messages into the data lake and catalog  
-- **Amazon SNS** topic as the *hub*  
-- **Amazon S3** bucket for artifacts such as Lambda code
-
-> Only allow indirect write access to the data lake through a Lambda function → ensures consistency.
+Below are real-world examples:
 
 ---
 
-## Front Door Microservice
+## **1. Tufts Medicine – Epic EHR deployment on AWS in 14 months**
 
-- Provides an API Gateway for external REST interaction  
-- Authentication & authorization based on **OIDC** via **Amazon Cognito**  
-- Self-managed *deduplication* mechanism using DynamoDB instead of SNS FIFO because:  
-  1. SNS deduplication TTL is only 5 minutes  
-  2. SNS FIFO requires SQS FIFO  
-  3. Ability to proactively notify the sender that the message is a duplicate  
+- Migrated full EHR environment (production, DR, training) to AWS  
+- Consolidated technology stacks and modernized applications  
+- Became the **first** healthcare system to run a complete Epic environment on AWS  
+→ Result: better performance and improved experience for patients and providers.
 
 ---
 
-## Staging ER7 Microservice
+## **2. Baptist Memorial Health Care (BMHC)**  
+Serving **3 million patients** across three U.S. states.
 
-- Lambda “trigger” subscribed to the pub/sub hub, filtering messages by attribute  
-- Step Functions Express Workflow to convert ER7 → JSON  
-- Two Lambdas:  
-  1. Fix ER7 formatting (newline, carriage return)  
-  2. Parsing logic  
-- Result or error is pushed back into the pub/sub hub  
+- Partnered with AWS Partner Optimum Healthcare IT  
+- Migrated EHR to AWS to overcome on-premise limitations  
+- Achieved **20% performance improvement**  
+- Lower total cost of ownership  
+- Stronger disaster recovery across **22 hospitals + 200 clinics**
 
 ---
 
-## New Features in the Solution
+## **3. NSW Health – 10× performance improvement**
 
-### 1. AWS CloudFormation Cross-Stack References
-Example *outputs* in the core microservice:
-```yaml
-Outputs:
-  Bucket:
-    Value: !Ref Bucket
-    Export:
-      Name: !Sub ${AWS::StackName}-Bucket
-  ArtifactBucket:
-    Value: !Ref ArtifactBucket
-    Export:
-      Name: !Sub ${AWS::StackName}-ArtifactBucket
-  Topic:
-    Value: !Ref Topic
-    Export:
-      Name: !Sub ${AWS::StackName}-Topic
-  Catalog:
-    Value: !Ref Catalog
-    Export:
-      Name: !Sub ${AWS::StackName}-Catalog
-  CatalogArn:
-    Value: !GetAtt Catalog.Arn
-    Export:
-      Name: !Sub ${AWS::StackName}-CatalogArn
+- Enterprise patient record application ran **10 times faster**  
+- **70% reduction** in critical incidents  
+- Application deployment improved by **50%**  
+- Environment provisioning reduced from 6–8 weeks → **under 4 hours**  
+- USD 16 million in financial benefits  
+- Saved **144,000 work hours** for frontline clinicians  
+- Integrated:
+  - AWS Security Hub  
+  - Amazon GuardDuty  
+→ Automated security checks and early threat detection
+
+---
+
+# Building a Resilience Framework
+
+The guide recommends steps such as:
+
+- Identify **critical workloads**  
+- Set appropriate **RTO and RPO**  
+- Apply the **shared responsibility model**  
+- Deploy applications across **multiple AZs**  
+- Build comprehensive disaster recovery strategies  
+- Maintain compliance with healthcare regulations  
+
+---
+
+# Policy Recommendations for Healthcare Leaders
+
+AWS advises policymakers to:
+
+- Establish **cloud-first policies** for health systems  
+- Create **financial incentives** to support digital transformation  
+- Adopt **international standards** rather than fragmented requirements  
+- Promote resilience excellence frameworks  
+- Develop **cloud-focused healthcare workforce training**  
+- Build **regulatory sandboxes** for testing innovative cloud solutions  
+
+---
+
+# Ready to Strengthen Your Healthcare System’s Resilience?
+
+Download the full guide:  
+**“Resilient Healthcare Through Cloud Computing: A Strategy and Policy Guide”**
+
+Or contact AWS experts for further consultation.
+
+---
+
+# Author Profiles
+
+### **Justin Bowden**  
+- Compliance & Security Assurance Principal – AWS  
+- Supports ANZ agencies in enhancing cloud resilience  
+- Expertise: risk management, security, operational resilience  
+
+### **Andrew Wiltshire**  
+- Head of Healthcare Public Policy – AWS APJ  
+- 40 years of healthcare experience  
+- Enthusiast of classic cars and 4x4 off-road vehicles  
+
+### **Senthil Gurumoorthi**  
+- Principal – AWS  
+- Leads data governance initiatives  
+- Co-author of ISPE GAMP 5 V2  
+- Member of FDA-Industry CSA Team  

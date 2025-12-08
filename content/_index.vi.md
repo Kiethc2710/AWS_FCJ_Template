@@ -11,7 +11,7 @@ chapter: false
 
 &emsp; **Số điện thoại:** 0818227828
 
-&emsp; **Email:** Anguyenvan@gmail.com
+&emsp; **Email:** kiethcse182293@fpt.edu.vn
 
 &emsp; **Trường:** Đại học FPT Cơ Sở Hồ Chí Minh
 

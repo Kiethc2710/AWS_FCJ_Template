@@ -6,15 +6,6 @@ chapter: false
 pre: " <b> 1. </b> "
 ---
 
-**Trong trang này**, bạn sẽ giới thiệu tổng quan về **nhật ký công việc (Worklog)** của mình.  
-Bạn đã hoàn thành chương trình thực tập **như thế nào**?  
-Bạn mất **bao nhiêu tuần**?  
-Và **công việc từng tuần** của bạn gồm những gì?
-
-Thông thường, một worklog kéo dài khoảng **3 tháng** với nội dung phân chia theo tuần như sau:
-
----
-
 **Tuần 1:**  
 [**Làm quen với AWS và các dịch vụ AWS cơ bản**](1.1-week1/)
 

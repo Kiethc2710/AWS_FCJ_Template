@@ -5,122 +5,160 @@ weight: 1
 chapter: false
 pre: " <b> 3.1. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
-# Bắt đầu với healthcare data lakes: Sử dụng microservices
 
-Các data lake có thể giúp các bệnh viện và cơ sở y tế chuyển dữ liệu thành những thông tin chi tiết về doanh nghiệp và duy trì hoạt động kinh doanh liên tục, đồng thời bảo vệ quyền riêng tư của bệnh nhân. **Data lake** là một kho lưu trữ tập trung, được quản lý và bảo mật để lưu trữ tất cả dữ liệu của bạn, cả ở dạng ban đầu và đã xử lý để phân tích. data lake cho phép bạn chia nhỏ các kho chứa dữ liệu và kết hợp các loại phân tích khác nhau để có được thông tin chi tiết và đưa ra các quyết định kinh doanh tốt hơn.
-
-Bài đăng trên blog này là một phần của loạt bài lớn hơn về việc bắt đầu cài đặt data lake dành cho lĩnh vực y tế. Trong bài đăng blog cuối cùng của tôi trong loạt bài, *“Bắt đầu với data lake dành cho lĩnh vực y tế: Đào sâu vào Amazon Cognito”*, tôi tập trung vào các chi tiết cụ thể của việc sử dụng Amazon Cognito và Attribute Based Access Control (ABAC) để xác thực và ủy quyền người dùng trong giải pháp data lake y tế. Trong blog này, tôi trình bày chi tiết cách giải pháp đã phát triển ở cấp độ cơ bản, bao gồm các quyết định thiết kế mà tôi đã đưa ra và các tính năng bổ sung được sử dụng. Bạn có thể truy cập các code samples cho giải pháp tại Git repo này để tham khảo.
-
----
-
-## Hướng dẫn kiến trúc
-
-Thay đổi chính kể từ lần trình bày cuối cùng của kiến trúc tổng thể là việc tách dịch vụ đơn lẻ thành một tập hợp các dịch vụ nhỏ để cải thiện khả năng bảo trì và tính linh hoạt. Việc tích hợp một lượng lớn dữ liệu y tế khác nhau thường yêu cầu các trình kết nối chuyên biệt cho từng định dạng; bằng cách giữ chúng được đóng gói riêng biệt với microservices, chúng ta có thể thêm, xóa và sửa đổi từng trình kết nối mà không ảnh hưởng đến những kết nối khác. Các microservices được kết nối rời thông qua tin nhắn publish/subscribe tập trung trong cái mà tôi gọi là “pub/sub hub”.
-
-Giải pháp này đại diện cho những gì tôi sẽ coi là một lần lặp nước rút hợp lý khác từ last post của tôi. Phạm vi vẫn được giới hạn trong việc nhập và phân tích cú pháp đơn giản của các **HL7v2 messages** được định dạng theo **Quy tắc mã hóa 7 (ER7)** thông qua giao diện REST.
-
-**Kiến trúc giải pháp bây giờ như sau:**
-
-> *Hình 1. Kiến trúc tổng thể; những ô màu thể hiện những dịch vụ riêng biệt.*
+# AWS Partner Network (APN) Blog  
+## Mở khóa sức mạnh của AI trong sản xuất với PTC Kepware+ trên AWS  
+Tác giả: Preet Virk, Raymond Labbe, Stephen Sponseller và Manish Yashvant  
+Ngày: 08 JUL 2025  
+Nguồn: AWS Public Sector Blog  
+Trong: AWS IoT Core, AWS IoT SiteWise, Giải pháp đối tác Liên kết cố định  
 
 ---
 
-Mặc dù thuật ngữ *microservices* có một số sự mơ hồ cố hữu, một số đặc điểm là chung:  
-- Chúng nhỏ, tự chủ, kết hợp rời rạc  
-- Có thể tái sử dụng, giao tiếp thông qua giao diện được xác định rõ  
-- Chuyên biệt để giải quyết một việc  
-- Thường được triển khai trong **event-driven architecture**
+## Giới thiệu
 
-Khi xác định vị trí tạo ranh giới giữa các microservices, cần cân nhắc:  
-- **Nội tại**: công nghệ được sử dụng, hiệu suất, độ tin cậy, khả năng mở rộng  
-- **Bên ngoài**: chức năng phụ thuộc, tần suất thay đổi, khả năng tái sử dụng  
-- **Con người**: quyền sở hữu nhóm, quản lý *cognitive load*
+Các hệ thống phân mảnh, thiết bị cũ kỹ và giao thức không tương thích tạo ra các kho dữ liệu riêng lẻ, làm chậm quá trình đổi mới và gây ra rủi ro an ninh mạng. Các nhà sản xuất đang chạy đua để hiện đại hóa hoạt động và khai thác thông tin chi tiết dựa trên dữ liệu bằng AI.
+
+Sự hợp tác giữa **PTC Kepware và AWS** nhằm giải quyết những thách thức này.
+
+Blog này trình bày cách tích hợp **Kepware+ với AWS** để cải thiện hiệu quả, giảm chi phí và tăng cường phân tích trong kiến trúc IoT công nghiệp.
 
 ---
 
-## Lựa chọn công nghệ và phạm vi giao tiếp
+# Tại sao kết nối công nghiệp quan trọng
 
-| Phạm vi giao tiếp                        | Các công nghệ / mô hình cần xem xét                                                        |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Trong một microservice                   | Amazon Simple Queue Service (Amazon SQS), AWS Step Functions                               |
-| Giữa các microservices trong một dịch vụ | AWS CloudFormation cross-stack references, Amazon Simple Notification Service (Amazon SNS) |
-| Giữa các dịch vụ                         | Amazon EventBridge, AWS Cloud Map, Amazon API Gateway                                      |
+Môi trường công nghiệp có nhiều cảm biến, máy móc và hệ thống điều khiển sử dụng giao thức khác nhau. Điều này hạn chế thu thập dữ liệu.
 
----
+**Kepware+ tích hợp AWS** giúp:
 
-## The pub/sub hub
+- Chuẩn hóa quyền truy cập dữ liệu từ PLC, SCADA, HVAC, sensor…  
+- Kích hoạt AI thời gian thực qua AWS IoT Core / Greengrass  
+- Tạo hành động dự đoán với AWS IoT SiteWise & Amazon SageMaker  
 
-Việc sử dụng kiến trúc **hub-and-spoke** (hay message broker) hoạt động tốt với một số lượng nhỏ các microservices liên quan chặt chẽ.  
-- Mỗi microservice chỉ phụ thuộc vào *hub*  
-- Kết nối giữa các microservice chỉ giới hạn ở nội dung của message được xuất  
-- Giảm số lượng synchronous calls vì pub/sub là *push* không đồng bộ một chiều
-
-Nhược điểm: cần **phối hợp và giám sát** để tránh microservice xử lý nhầm message.
+Các tổ chức có thể giảm downtime, tăng hiệu suất tài sản và có được visibility thời gian thực.
 
 ---
 
-## Core microservice
+# Các tác động thực tế
 
-Cung cấp dữ liệu nền tảng và lớp truyền thông, gồm:  
-- **Amazon S3** bucket cho dữ liệu  
-- **Amazon DynamoDB** cho danh mục dữ liệu  
-- **AWS Lambda** để ghi message vào data lake và danh mục  
-- **Amazon SNS** topic làm *hub*  
-- **Amazon S3** bucket cho artifacts như mã Lambda
+## 1. Bảo trì dự đoán (Predictive Maintenance)
 
-> Chỉ cho phép truy cập ghi gián tiếp vào data lake qua hàm Lambda → đảm bảo nhất quán.
+Một hãng ô tô toàn cầu:
 
----
+- Giảm **40% downtime**
+- Tiết kiệm **2.8 triệu USD/năm**
 
-## Front door microservice
+Thông qua:
 
-- Cung cấp API Gateway để tương tác REST bên ngoài  
-- Xác thực & ủy quyền dựa trên **OIDC** thông qua **Amazon Cognito**  
-- Cơ chế *deduplication* tự quản lý bằng DynamoDB thay vì SNS FIFO vì:
-  1. SNS deduplication TTL chỉ 5 phút
-  2. SNS FIFO yêu cầu SQS FIFO
-  3. Chủ động báo cho sender biết message là bản sao
+- Thu thập dữ liệu từ 15 nhà máy vào Amazon S3  
+- Phân tích bằng AWS IoT SiteWise + SageMaker  
 
 ---
 
-## Staging ER7 microservice
+## 2. Phân tích năng lượng gió
 
-- Lambda “trigger” đăng ký với pub/sub hub, lọc message theo attribute  
-- Step Functions Express Workflow để chuyển ER7 → JSON  
-- Hai Lambda:
-  1. Sửa format ER7 (newline, carriage return)
-  2. Parsing logic  
-- Kết quả hoặc lỗi được đẩy lại vào pub/sub hub
+Nhà cung cấp năng lượng tái tạo:
+
+- Kết nối 2.200 turbine gió  
+- Gửi dữ liệu mã hóa an toàn lên AWS IoT Core  
+- Phân tích bằng Redshift, S3 Data Lake  
+
+Kết quả:
+
+- Hiệu suất tăng **15%**  
+- Chi phí giảm **50%**  
 
 ---
 
-## Tính năng mới trong giải pháp
+## 3. Tối ưu hóa năng lượng cho dầu khí
 
-### 1. AWS CloudFormation cross-stack references
-Ví dụ *outputs* trong core microservice:
-```yaml
-Outputs:
-  Bucket:
-    Value: !Ref Bucket
-    Export:
-      Name: !Sub ${AWS::StackName}-Bucket
-  ArtifactBucket:
-    Value: !Ref ArtifactBucket
-    Export:
-      Name: !Sub ${AWS::StackName}-ArtifactBucket
-  Topic:
-    Value: !Ref Topic
-    Export:
-      Name: !Sub ${AWS::StackName}-Topic
-  Catalog:
-    Value: !Ref Catalog
-    Export:
-      Name: !Sub ${AWS::StackName}-Catalog
-  CatalogArn:
-    Value: !GetAtt Catalog.Arn
-    Export:
-      Name: !Sub ${AWS::StackName}-CatalogArn
+- Kết nối sensor qua Kepware+ → AWS IoT Core  
+- Phân tích qua IoT SiteWise + QuickSight  
+
+→ Giảm **15%** năng lượng toàn hệ thống.
+
+---
+
+## 4. Cải thiện chuỗi cung ứng
+
+Nhà sản xuất F&B:
+
+- Visibility chuỗi cung ứng tăng **30%**  
+- Giảm lãng phí, giao hàng đúng hạn  
+
+---
+
+## 5. Quản lý tòa nhà thông minh
+
+- Kepware+ chuyển đổi các giao thức cũ (BACnet, Modbus…)  
+- Luồng dữ liệu vào AWS IoT Core  
+- Dashboard bằng QuickSight  
+
+---
+
+## 6. Theo dõi & truy vết dược phẩm
+
+Dùng cho tuân thủ FDA:
+
+- Dữ liệu gửi vào S3 với mã hóa + versioning  
+- IoT SiteWise & Athena phát hiện sai lệch  
+- Hỗ trợ kiểm tra, audit dễ dàng  
+
+---
+
+# Kepware và AWS hoạt động cùng nhau
+
+**Kepware+** chuẩn hóa cách trao đổi dữ liệu giữa thiết bị công nghiệp và AWS.
+
+Các chức năng chính:
+
+- Kết nối PLC, SCADA, cảm biến qua thư viện driver  
+- Giao tiếp an toàn MQTT  
+- Quản lý cấu hình toàn doanh nghiệp  
+- Truyền dữ liệu thời gian thực đến AWS IoT SiteWise qua Greengrass  
+- Kết nối AWS IoT Core qua MQTT Client Agent  
+- Tích hợp AI/ML với SageMaker  
+- ETL dữ liệu bằng AWS Glue  
+- Truy vấn Athena, lưu trữ Redshift, Neptune, S3  
+- Sự kiện kích hoạt Lambda → chuyển tiếp dữ liệu  
+
+---
+
+# Biến dữ liệu bị cô lập thành thông tin chi tiết
+
+Sự kết hợp Kepware + AWS giúp:
+
+- Đơn giản hóa OT data access  
+- Tăng bảo mật với Greengrass  
+- Dễ dàng mở rộng global scale  
+
+Doanh nghiệp có thể chuyển đổi từ dây chuyền đơn lẻ đến toàn bộ tổ chức.
+
+---
+
+# Kết luận
+
+Tương lai sản xuất dựa trên:
+
+- Kết nối  
+- Trí tuệ  
+- Tính linh hoạt  
+
+Ứng dụng Kepware+ với AWS giúp:
+
+- Bảo trì dự đoán  
+- Tối ưu hóa năng lượng  
+- Tuân thủ quy định  
+- Tăng cường khả năng phục hồi chuỗi cung ứng  
+
+---
+
+# PTC – Đối tác tiêu biểu AWS
+
+PTC là AWS IoT Competency Partner với nền tảng ThingWorx.
+
+Liên hệ PTC | Partner Overview | AWS Marketplace
+
+---
+

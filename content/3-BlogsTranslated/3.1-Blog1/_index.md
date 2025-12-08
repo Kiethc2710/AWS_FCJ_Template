@@ -1,126 +1,176 @@
 ---
-title: "Blog 1"
+title: "Blog 1 "
 date: "2025-09-10"
 weight: 1
 chapter: false
 pre: " <b> 3.1. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
-{{% /notice %}}
 
-# Getting Started with Healthcare Data Lakes: Using Microservices
 
-Data lakes can help hospitals and healthcare facilities turn data into business insights, maintain business continuity, and protect patient privacy. A **data lake** is a centralized, managed, and secure repository to store all your data, both in its raw and processed forms for analysis. Data lakes allow you to break down data silos and combine different types of analytics to gain insights and make better business decisions.
 
-This blog post is part of a larger series on getting started with setting up a healthcare data lake. In my final post of the series, *“Getting Started with Healthcare Data Lakes: Diving into Amazon Cognito”*, I focused on the specifics of using Amazon Cognito and Attribute Based Access Control (ABAC) to authenticate and authorize users in the healthcare data lake solution. In this blog, I detail how the solution evolved at a foundational level, including the design decisions I made and the additional features used. You can access the code samples for the solution in this Git repo for reference.
-
----
-
-## Architecture Guidance
-
-The main change since the last presentation of the overall architecture is the decomposition of a single service into a set of smaller services to improve maintainability and flexibility. Integrating a large volume of diverse healthcare data often requires specialized connectors for each format; by keeping them encapsulated separately as microservices, we can add, remove, and modify each connector without affecting the others. The microservices are loosely coupled via publish/subscribe messaging centered in what I call the “pub/sub hub.”
-
-This solution represents what I would consider another reasonable sprint iteration from my last post. The scope is still limited to the ingestion and basic parsing of **HL7v2 messages** formatted in **Encoding Rules 7 (ER7)** through a REST interface.
-
-**The solution architecture is now as follows:**
-
-> *Figure 1. Overall architecture; colored boxes represent distinct services.*
+# AWS Partner Network (APN) Blog  
+## Unlocking the Power of AI in Manufacturing with PTC Kepware+ on AWS  
+Authors: Preet Virk, Raymond Labbe, Stephen Sponseller, Manish Yashvant  
+Date: July 08, 2025  
+Source: AWS Public Sector Blog  
+Topics: AWS IoT Core, AWS IoT SiteWise, Industrial IoT Solutions  
 
 ---
 
-While the term *microservices* has some inherent ambiguity, certain traits are common:  
-- Small, autonomous, loosely coupled  
-- Reusable, communicating through well-defined interfaces  
-- Specialized to do one thing well  
-- Often implemented in an **event-driven architecture**
+# Introduction
 
-When determining where to draw boundaries between microservices, consider:  
-- **Intrinsic**: technology used, performance, reliability, scalability  
-- **Extrinsic**: dependent functionality, rate of change, reusability  
-- **Human**: team ownership, managing *cognitive load*
+Manufacturers face fragmented systems, legacy devices, and incompatible industrial protocols that create data silos. This slows innovation and increases cybersecurity risk.  
+Organizations are now racing to modernize operations and use AI-driven insights.
+
+The collaboration between **PTC Kepware and AWS** aims to solve these industrial connectivity challenges.
+
+This blog explains how **Kepware+ integrated with AWS** can improve operational efficiency, reduce costs, and enhance industrial analytics.
 
 ---
 
-## Technology Choices and Communication Scope
+# Why Industrial Connectivity Matters
 
-| Communication scope                       | Technologies / patterns to consider                                                        |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Within a single microservice              | Amazon Simple Queue Service (Amazon SQS), AWS Step Functions                               |
-| Between microservices in a single service | AWS CloudFormation cross-stack references, Amazon Simple Notification Service (Amazon SNS) |
-| Between services                          | Amazon EventBridge, AWS Cloud Map, Amazon API Gateway                                      |
+Factories use numerous sensors, controllers, and machines communicating through different protocols, making data collection difficult.
 
----
+**Kepware+ with AWS** provides:
 
-## The Pub/Sub Hub
+- Standardized data access from PLCs, SCADA, HVAC, and sensors  
+- Real-time AI workflows via AWS IoT Core / AWS Greengrass  
+- Predictive analytics powered by AWS IoT SiteWise and Amazon SageMaker  
 
-Using a **hub-and-spoke** architecture (or message broker) works well with a small number of tightly related microservices.  
-- Each microservice depends only on the *hub*  
-- Inter-microservice connections are limited to the contents of the published message  
-- Reduces the number of synchronous calls since pub/sub is a one-way asynchronous *push*
-
-Drawback: **coordination and monitoring** are needed to avoid microservices processing the wrong message.
+This leads to reduced downtime, improved asset efficiency, and increased operational visibility.
 
 ---
 
-## Core Microservice
+# Real-World Impact
 
-Provides foundational data and communication layer, including:  
-- **Amazon S3** bucket for data  
-- **Amazon DynamoDB** for data catalog  
-- **AWS Lambda** to write messages into the data lake and catalog  
-- **Amazon SNS** topic as the *hub*  
-- **Amazon S3** bucket for artifacts such as Lambda code
+## 1. Predictive Maintenance
 
-> Only allow indirect write access to the data lake through a Lambda function → ensures consistency.
+A global automotive manufacturer achieved:
 
----
+- **40% reduction in unplanned downtime**
+- **$2.8M annual savings**
 
-## Front Door Microservice
+By:
 
-- Provides an API Gateway for external REST interaction  
-- Authentication & authorization based on **OIDC** via **Amazon Cognito**  
-- Self-managed *deduplication* mechanism using DynamoDB instead of SNS FIFO because:  
-  1. SNS deduplication TTL is only 5 minutes  
-  2. SNS FIFO requires SQS FIFO  
-  3. Ability to proactively notify the sender that the message is a duplicate  
+- Collecting data from 15 factories into Amazon S3  
+- Running analytics with AWS IoT SiteWise + Amazon SageMaker  
 
 ---
 
-## Staging ER7 Microservice
+## 2. Wind Energy Analytics
 
-- Lambda “trigger” subscribed to the pub/sub hub, filtering messages by attribute  
-- Step Functions Express Workflow to convert ER7 → JSON  
-- Two Lambdas:  
-  1. Fix ER7 formatting (newline, carriage return)  
-  2. Parsing logic  
-- Result or error is pushed back into the pub/sub hub  
+A renewable energy provider:
+
+- Connected 2,200 wind turbines  
+- Streamed encrypted data to AWS IoT Core  
+- Analyzed performance using Redshift + S3 Data Lake  
+
+Results:
+
+- **15% increase in turbine performance**  
+- **50% reduction in operational costs**  
 
 ---
 
-## New Features in the Solution
+## 3. Energy Optimization in Oil & Gas
 
-### 1. AWS CloudFormation Cross-Stack References
-Example *outputs* in the core microservice:
-```yaml
-Outputs:
-  Bucket:
-    Value: !Ref Bucket
-    Export:
-      Name: !Sub ${AWS::StackName}-Bucket
-  ArtifactBucket:
-    Value: !Ref ArtifactBucket
-    Export:
-      Name: !Sub ${AWS::StackName}-ArtifactBucket
-  Topic:
-    Value: !Ref Topic
-    Export:
-      Name: !Sub ${AWS::StackName}-Topic
-  Catalog:
-    Value: !Ref Catalog
-    Export:
-      Name: !Sub ${AWS::StackName}-Catalog
-  CatalogArn:
-    Value: !GetAtt Catalog.Arn
-    Export:
-      Name: !Sub ${AWS::StackName}-CatalogArn
+Using:
+
+- Kepware+ for data acquisition  
+- AWS IoT Core for data pipelines  
+- AWS IoT SiteWise + QuickSight for analysis  
+
+Outcome:
+
+- **15% reduction in overall energy consumption**
+
+---
+
+## 4. Supply Chain Optimization
+
+A food & beverage manufacturer:
+
+- Improved supply chain visibility by **30%**  
+- Reduced product waste  
+- Increased on-time delivery performance  
+
+---
+
+## 5. Smart Building Management
+
+Kepware+ converts legacy protocols such as:
+
+- BACnet  
+- Modbus  
+- OPC  
+
+Data flows into AWS IoT Core, enabling dashboards through Amazon QuickSight.
+
+---
+
+## 6. Pharmaceutical Tracking & Compliance
+
+For strict regulatory environments:
+
+- Data stored securely in Amazon S3 with encryption & versioning  
+- AWS IoT SiteWise + Amazon Athena detect anomalies  
+- Supports FDA audit and compliance requirements  
+
+---
+
+# How Kepware+ Works with AWS
+
+**Kepware+** enhances communication between industrial equipment and AWS services.
+
+Key capabilities include:
+
+- Connectivity to PLCs, SCADA, sensors using Kepware’s driver library  
+- Supports secure MQTT communication  
+- Centralized configuration management  
+- Real-time data ingestion to AWS IoT SiteWise through Greengrass  
+- AWS IoT Core integration via MQTT Client Agent  
+- AI/ML workflows with Amazon SageMaker  
+- ETL pipelines using AWS Glue  
+- Data querying with Athena, storage in Redshift / Neptune / S3  
+- Event-driven integrations using AWS Lambda  
+
+---
+
+# Turning Isolated Data into Actionable Insights
+
+Kepware+ + AWS provides:
+
+- Simplified OT data access  
+- Enhanced security with Greengrass  
+- Global scalability  
+- Faster adoption of industrial AI  
+
+Organizations can scale from individual production lines to global operations.
+
+---
+
+# Conclusion
+
+Manufacturing is rapidly evolving, requiring:
+
+- Connectivity  
+- Intelligence  
+- Flexibility  
+
+The combination of Kepware+ and AWS enables:
+
+- Predictive maintenance  
+- Energy optimization  
+- Compliance management  
+- Supply chain resilience  
+
+---
+
+# PTC – A Leading AWS IoT Partner
+
+PTC is an AWS IoT Competency Partner and provides the ThingWorx industrial platform.
+
+Contact PTC | Partner Overview | AWS Marketplace
+
+---
